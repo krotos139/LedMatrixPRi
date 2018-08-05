@@ -40,6 +40,11 @@ lib_srcs = Split('''
     pcm.c
     dma.c
     rpihw.c
+    effect_off.c
+    effect_main_light.c
+    effect_test.c
+    control.c
+    led.c
 ''')
 
 version_hdr = tools_env.Version('version')
@@ -58,7 +63,9 @@ objs = []
 for src in srcs:
    objs.append(tools_env.Object(src))
 
-test = tools_env.Program('test', objs + tools_env['LIBS'])
+libraries = ['pthread']
+tools_env.Append( CPPFLAGS=['-std=c++11', '-pthread', '-Wall', '-g'] )
+test = tools_env.Program('test', objs + tools_env['LIBS'], )
 
 Default([test, ws2811_lib])
 
