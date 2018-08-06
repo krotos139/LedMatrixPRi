@@ -1,39 +1,36 @@
 #include <stdio.h>
-#include "freertos/FreeRTOS.h"
-#include "freertos/task.h"
-#include "freertos/event_groups.h"
-#include "esp_log.h"
-
-#include "lwip/err.h"
-#include "lwip/sockets.h"
-#include "lwip/sys.h"
-#include <lwip/netdb.h>
+#include <unistd.h>
 
 #include "led_tasks.h"
 
+#include <sys/types.h>
+#include <sys/socket.h>
+#include <arpa/inet.h>
+#include <string.h>
+#include <fcntl.h>
 
 #define ART_DMX_START 18
 static int udp_server;
 static char buf[600];
 static int artnetFramesCount = 0;
 
-static const char *TAG = "ARTNET";
 
-uint8_t ArtNetBegin(){
+uint8_t artnet_init(){
   //stop();
+  printf("ARTNET: init\n");
   uint16_t port = 6454;
 
   uint16_t server_port = port;
   
 
   if ((udp_server=socket(AF_INET, SOCK_DGRAM, 0)) == -1){
-    ESP_LOGE(TAG, "could not create socket: %d", errno);
+    printf( "ATRNET: could not create socket\n");
     return 0;
   }
 
   int yes = 1;
   if (setsockopt(udp_server,SOL_SOCKET,SO_REUSEADDR,&yes,sizeof(yes)) < 0) {
-      ESP_LOGE(TAG, "could not set socket option: %d", errno);
+      printf( "ARTNET: could not set socket option\n");
       //stop();
       return 0;
   }
@@ -44,15 +41,17 @@ uint8_t ArtNetBegin(){
   addr.sin_port = htons(server_port);
   addr.sin_addr.s_addr = htonl(INADDR_ANY);
   if(bind(udp_server , (struct sockaddr*)&addr, sizeof(addr)) == -1){
-    ESP_LOGE(TAG, "could not bind socket: %d", errno);
+    printf("ARTNET: could not bind socket\n");
     return 0;
   }
   fcntl(udp_server, F_SETFL, O_NONBLOCK);
+  printf("ARTNET: init done\n");
   return 1;
 }
 
 void onDmxFrame(uint16_t universe, uint16_t length, uint8_t sequence, uint8_t* data)
 {
+	//printf("onDMXFrame u=%d\n", universe);
 	artnetFramesCount++;
 	if (universe == 0) {
 		led_show();
@@ -76,10 +75,10 @@ int ArtNetParsePacket(){
   
   if ((len = recvfrom(udp_server, buf, 600, MSG_DONTWAIT, (struct sockaddr *) &si_other, (socklen_t *)&slen)) == -1){
     //delete[] buf;
-    if(errno == EWOULDBLOCK){
-      return 0;
-    }
-    ESP_LOGE(TAG,"could not receive data: %d", errno);
+    //if(errno == EWOULDBLOCK){
+    //  return 0;
+    //}
+    //printf("ARTNET: could not receive data\n");
     return 0;
   }
   
@@ -129,7 +128,7 @@ void artnet_task() {
     //}
 }
 
-#define ARTNET_STATISTIC 1
+#define ARTNET_STATISTIC 0
 
 #if ARTNET_STATISTIC
 uint32_t artnet_clock_millis;
@@ -148,12 +147,12 @@ void artnet_process() {
 	}
 #if ARTNET_STATISTIC
 	if (artnet_clock_millis < (uint32_t) (clock() * 1000 / CLOCKS_PER_SEC)) {
-		ESP_LOGI(TAG, "artnetFramesCount=%d", artnetFramesCount);
+		printf( "ARTNET: artnetFramesCount=%d\n", artnetFramesCount);
 		artnetFramesCount = 0;
 		artnet_clock_millis += 1000;
 	}
 #endif
-	vTaskDelay(1);
+	usleep(1);
 }
 void artnet_end() {
 	led_clear();

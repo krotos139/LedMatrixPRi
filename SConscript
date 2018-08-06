@@ -32,8 +32,8 @@ Import(['clean_envs'])
 tools_env = clean_envs['userspace'].Clone()
 
 
-# Build Library
-lib_srcs = Split('''
+# Test Program
+srcs = Split('''
     mailbox.c
     ws2811.c
     pwm.c
@@ -45,17 +45,7 @@ lib_srcs = Split('''
     effect_test.c
     control.c
     led.c
-''')
-
-version_hdr = tools_env.Version('version')
-ws2811_lib = tools_env.Library('libws2811', lib_srcs)
-tools_env['LIBS'].append(ws2811_lib)
-
-# Shared library (if required)
-ws2811_slib = tools_env.SharedLibrary('libws2811', lib_srcs)
-
-# Test Program
-srcs = Split('''
+    artnet.c
     main.c
 ''')
 
@@ -64,10 +54,10 @@ for src in srcs:
    objs.append(tools_env.Object(src))
 
 libraries = ['pthread']
-tools_env.Append( CPPFLAGS=['-std=c++11', '-pthread', '-Wall', '-g'] )
-test = tools_env.Program('test', objs + tools_env['LIBS'], )
+tools_env.Replace( CPPFLAGS=['-pthread', ] )
+test = tools_env.Program('test', objs + tools_env['LIBS'], LIBS=libraries )
 
-Default([test, ws2811_lib])
+Default([test])
 
 package_version = "1.1.0-1"
 package_name = 'libws2811_%s' % package_version
@@ -79,24 +69,5 @@ debian_files = [
     'DEBIAN/postrm',
 ]
 
-package_files_desc = [
-    [ '/usr/lib', ws2811_slib ],
-]
 
-package_files = []
-for target in package_files_desc:
-    package_files.append(tools_env.Install(package_name + target[0], target[1]))
-
-for deb_file in debian_files:
-    package_files.append(
-        tools_env.Command('%s/%s' % (package_name, deb_file), deb_file, [
-            Copy("$TARGET", "$SOURCE"),
-            Chmod("$TARGET", 0755)
-        ])
-    )
-
-package = tools_env.Command('%s.deb' % package_name, package_files,
-                            'cd %s; dpkg-deb --build %s' % (Dir('.').abspath, package_name));
-
-Alias("deb", package)
 

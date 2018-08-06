@@ -60,11 +60,15 @@ int main(/*int argc, char *argv[]*/)
 	return -1;
     }
 
+    artnet_init();
+
     printf("READY\n");
 
     while (running) {
     	control_task();
     }
+    switchScene(-1);
+    control_task();
 
     pthread_join(thread, NULL);
 

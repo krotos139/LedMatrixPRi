@@ -220,6 +220,18 @@ void* thread_led( void* vptr_args ) {
 	sem_post(&semaphore);
     	usleep(20000);
     }
+    printf("LED: quit\n");
+    led_clear();
+    if ((ret = ws2811_render(&ledstring1)) != WS2811_SUCCESS) {
+	fprintf(stderr, "ws2811_render 1 failed: %s\n", ws2811_get_return_t_str(ret));
+    }
+    if ((ret = ws2811_render(&ledstring2)) != WS2811_SUCCESS) {
+	fprintf(stderr, "ws2811_render 1 failed: %s\n", ws2811_get_return_t_str(ret));
+    }
+    if ((ret = ws2811_render(&ledstring3)) != WS2811_SUCCESS) {
+	fprintf(stderr, "ws2811_render 1 failed: %s\n", ws2811_get_return_t_str(ret));
+    }
+
     return NULL;
 }
 

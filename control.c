@@ -5,7 +5,7 @@
 
 
 int scene = -1;
-int new_scene = 0;
+int new_scene = 1;
 	
 void switchScene(int scene) {
 	new_scene = scene;
@@ -30,8 +30,8 @@ void control_task() {
 			switch (scene) {
 				case 0: effect_test_end();
 					break;
-			//	case 1: artnet_end();
-			//		break;
+				case 1: artnet_end();
+					break;
 				case 2: effect_mainlight_end();
 					break;
 				case 3: effect_off_end();
@@ -41,8 +41,8 @@ void control_task() {
 			switch (scene) {
 				case 0: effect_test_start();
 					break;
-			//	case 1: artnet_start();
-			//		break;
+				case 1: artnet_start();
+					break;
 				case 2: effect_mainlight_start();
 					break;
 				case 3: effect_off_start();
@@ -52,8 +52,8 @@ void control_task() {
 		switch (scene) {
 			case 0: effect_test_process();
 				break;
-			//case 1: artnet_process();
-			//	break;
+			case 1: artnet_process();
+				break;
 			case 2: effect_mainlight_process();
 				break;
 			case 3: effect_off_process();

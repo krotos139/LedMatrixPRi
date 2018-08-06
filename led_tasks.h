@@ -38,15 +38,16 @@ void effect_off_process();
 void effect_off_end();
 
 
-//void artnet_start();
-//void artnet_process();
-///void artnet_end();
+void artnet_start();
+void artnet_process();
+void artnet_end();
 
 int init_led();
 int deinit_led(); 
 uint8_t init_artnet();
 
 //void artnet_task();
+uint8_t artnet_init();
 void control_task();
 //void http_server(void *pvParameters);
 
