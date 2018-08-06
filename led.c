@@ -11,7 +11,7 @@
 
 #define TARGET_FREQ             WS2811_TARGET_FREQ
 #define DMA                     10
-#define STRIP_TYPE            SK6812_STRIP_RGBW	
+#define STRIP_TYPE            WS2811_STRIP_GRB 
 
 ws2811_t ledstring1 =
 {
@@ -115,14 +115,17 @@ inline ws2811_led_t rgb(uint8_t r, uint8_t g, uint8_t b) {
 }
 
 void led_set_pixel_color(uint8_t x, uint8_t y, ws2811_led_t color) {
+	if (x>=LED_X || y >=LED_Y) return;
 	matrix[y*LED_X+x] = color;
 }
 
 void led_set_pixel_rgb(uint8_t x, uint8_t y, uint8_t red, uint8_t green, uint8_t blue) {
+	if (x>=LED_X || y >=LED_Y) return;
 	matrix[y*LED_X+x] = rgb(red, green, blue);
 }
 
 void led_get_pixel_color(uint8_t x, uint8_t y, uint32_t *color) {
+	if (x>=LED_X || y >=LED_Y) return;
 	*color = matrix[y*LED_X+x]; 
 }
 
@@ -218,7 +221,7 @@ void* thread_led( void* vptr_args ) {
 		fprintf(stderr, "ws2811_render 1 failed: %s\n", ws2811_get_return_t_str(ret));
 	}
 	sem_post(&semaphore);
-    	usleep(20000);
+    	usleep(10000);
     }
     printf("LED: quit\n");
     led_clear();
@@ -239,6 +242,7 @@ int init_led() {
     ws2811_return_t ret;
 
     matrix = malloc(sizeof(ws2811_led_t) * LED_X * LED_Y);
+
     if (matrix == NULL) {
 	printf("LED: ERROR MALLOC\n");
 	return -1;
@@ -261,6 +265,17 @@ int init_led() {
         fprintf(stderr, "ws2811_init 3 failed: %s\n", ws2811_get_return_t_str(ret));
         return ret;
     }
+
+    for (int x = 0; x<LED_X ; x++ ) {
+	for (int y = 0; y<LED_Y ; y++) {
+		led_set_pixel_rgb(x, y, 0, x, y);
+	}
+    }
+    led_show();
+    for (int i = 0 ; i<64 ; i++) {
+	printf("%X ", ledstring1.channel[0].leds[i]);
+    }
+    printf("\n");
 
     printf("TEST...");
 
