@@ -49,7 +49,19 @@ int http_server_serve(int sock)
         switchScene(2);
       } else if(buf[5]=='3') {
         switchScene(3);
+      } else if(buf[5]=='4') {
+        switchScene(4);
+      } else if(buf[5]=='5') {
+        switchScene(5);
+      } else if(buf[5]=='6') {
+        switchScene(6);
+      } else if(buf[5]=='7') {
+        switchScene(7);
       }
+
+
+
+
 
 	  int mode = getScene();
 	  
@@ -83,7 +95,35 @@ int http_server_serve(int sock)
 		  sprintf(html_format_buffer, http_index_hml_b, "/0", "Test");
 	  }
 	  send(sock, html_format_buffer, strlen(html_format_buffer), 0);
-	  
+	  // Perlin HSV
+	  if (mode == 4) {
+		  sprintf(html_format_buffer, http_index_hml_bd, "/4", "Perlin HSV");
+	  } else {
+		  sprintf(html_format_buffer, http_index_hml_b, "/4", "perlin HSV");
+	  }
+	  send(sock, html_format_buffer, strlen(html_format_buffer), 0);
+  	  // Perlin RGB
+	  if (mode == 5) {
+		  sprintf(html_format_buffer, http_index_hml_bd, "/5", "Perlin RGB");
+	  } else {
+		  sprintf(html_format_buffer, http_index_hml_b, "/5", "perlin RGB");
+	  }
+	  send(sock, html_format_buffer, strlen(html_format_buffer), 0);
+	  // Perlin G
+	  if (mode == 6) {
+		  sprintf(html_format_buffer, http_index_hml_bd, "/6", "Perlin Green");
+	  } else {
+		  sprintf(html_format_buffer, http_index_hml_b, "/6", "perlin Green");
+	  }
+	  send(sock, html_format_buffer, strlen(html_format_buffer), 0);
+	  // Perlin B
+	  if (mode == 7) {
+		  sprintf(html_format_buffer, http_index_hml_bd, "/7", "Perlin Blue");
+	  } else {
+		  sprintf(html_format_buffer, http_index_hml_b, "/7", "perlin Blue");
+	  }
+	  send(sock, html_format_buffer, strlen(html_format_buffer), 0);
+
 	  send(sock, http_index_hml_e, sizeof(http_index_hml_e)-1, 0);
     }
 

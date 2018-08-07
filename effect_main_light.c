@@ -40,7 +40,7 @@ void effect_mainlight_start() {
 			}
 		}
 		led_show();
-		usleep(10000);
+		usleep(1000);
 	}
 }
 
@@ -84,9 +84,8 @@ void effect_mainlight_end() {
 			}
 		}
 		led_show();
-		usleep(10000);
+		usleep(1000);
 	}
 	usleep(10000);
 	led_clear();
-	led_show();
 }

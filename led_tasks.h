@@ -37,6 +37,21 @@ void effect_off_start();
 void effect_off_process();
 void effect_off_end();
 
+void effect_perlinnoise_start();
+void effect_perlinnoise_process();
+void effect_perlinnoise_end();
+
+void effect_perlinnoisergb_start();
+void effect_perlinnoisergb_process();
+void effect_perlinnoisergb_end();
+
+void effect_perlinnoiseg_start();
+void effect_perlinnoiseg_process();
+void effect_perlinnoiseg_end();
+
+void effect_perlinnoiseb_start();
+void effect_perlinnoiseb_process();
+void effect_perlinnoiseb_end();
 
 void artnet_start();
 void artnet_process();
@@ -57,4 +72,17 @@ uint8_t running;
 
 void http_server_stop();
 
+typedef struct {
+	double r;       // a fraction between 0 and 1
+	double g;       // a fraction between 0 and 1
+	double b;       // a fraction between 0 and 1
+} rgb_c;
 
+typedef struct {
+	double h;       // angle in degrees
+	double s;       // a fraction between 0 and 1
+	double v;       // a fraction between 0 and 1
+} hsv_c;
+
+hsv_c   rgb2hsv(rgb_c in);
+rgb_c   hsv2rgb(hsv_c in);

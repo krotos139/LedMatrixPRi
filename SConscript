@@ -43,6 +43,12 @@ srcs = Split('''
     effect_off.c
     effect_main_light.c
     effect_test.c
+    perlin.c
+    hsv.c
+    effect_perlin_noise.c
+    effect_perlin_rgbnoise.c
+    effect_perlin_gnoise.c
+    effect_perlin_bnoise.c
     control.c
     led.c
     artnet.c

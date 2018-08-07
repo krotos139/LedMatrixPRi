@@ -47,7 +47,7 @@ platforms = [
             'CPPPATH' : [
             ],
             'LINKFLAGS' : [
-                "-lrt", "-lpthread",
+                "-lrt", "-lpthread", "-lm"
             ],
         },
     ], 

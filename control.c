@@ -5,7 +5,7 @@
 
 
 int scene = -1;
-int new_scene = 1;
+int new_scene = 4;
 	
 void switchScene(int scene) {
 	new_scene = scene;
@@ -27,6 +27,7 @@ void control_task() {
 
 		if (scene != new_scene) {
 			printf("CONTROL: Switch to scene %d\n", new_scene);
+			printf("CONTROL: stop scene %d\n", scene);
 			switch (scene) {
 				case 0: effect_test_end();
 					break;
@@ -36,8 +37,18 @@ void control_task() {
 					break;
 				case 3: effect_off_end();
 					break;
+				case 4: effect_perlinnoise_end(); 
+					break;
+				case 5: effect_perlinnoisergb_end(); 
+					break;
+				case 6: effect_perlinnoiseg_end(); 
+					break;
+				case 7: effect_perlinnoiseb_end(); 
+					break;
+
 			}
 			scene = new_scene;
+			printf("CONTROL: start scene %d\n", scene);
 			switch (scene) {
 				case 0: effect_test_start();
 					break;
@@ -47,7 +58,18 @@ void control_task() {
 					break;
 				case 3: effect_off_start();
 					break;
+				case 4: effect_perlinnoise_start(); 
+					break;
+				case 5: effect_perlinnoisergb_start(); 
+					break;
+				case 6: effect_perlinnoiseg_start(); 
+					break;
+				case 7: effect_perlinnoiseb_start(); 
+					break;
+
 			}
+			printf("CONTROL: done swiching\n");
+
 		}
 		switch (scene) {
 			case 0: effect_test_process();
@@ -58,5 +80,14 @@ void control_task() {
 				break;
 			case 3: effect_off_process();
 				break;
+			case 4: effect_perlinnoise_process(); 
+				break;
+			case 5: effect_perlinnoisergb_process(); 
+				break;
+			case 6: effect_perlinnoiseg_process(); 
+				break;
+			case 7: effect_perlinnoiseb_process(); 
+				break;
+
 		}
 }
