@@ -195,6 +195,11 @@ void led_show() {
 }
 
 void led_clear() {
+        for (int x = 0; x<LED_X ; x++ ) {
+		for (int y = 0; y<LED_Y ; y++) {
+			led_set_pixel_rgb(x, y, 0, 0, 0);
+		}
+    	}
 	sem_wait(&semaphore);
 	for (int i = 0 ; i < LED_STRIP_LENGTH ; i++) {
 		ledstring1.channel[0].leds[i] = 0;
@@ -265,7 +270,7 @@ int init_led() {
         fprintf(stderr, "ws2811_init 3 failed: %s\n", ws2811_get_return_t_str(ret));
         return ret;
     }
-
+/*
     for (int x = 0; x<LED_X ; x++ ) {
 	for (int y = 0; y<LED_Y ; y++) {
 		led_set_pixel_rgb(x, y, 0, x, y);
@@ -276,7 +281,7 @@ int init_led() {
 	printf("%X ", ledstring1.channel[0].leds[i]);
     }
     printf("\n");
-
+*/
     printf("TEST...");
 
     ledstring1.channel[0].leds[0] = 0x00FFFFFF;

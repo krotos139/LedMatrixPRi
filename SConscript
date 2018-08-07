@@ -46,6 +46,7 @@ srcs = Split('''
     control.c
     led.c
     artnet.c
+    http_server.c
     main.c
 ''')
 

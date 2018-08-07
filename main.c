@@ -45,7 +45,9 @@ static void setup_handlers(void)
 
 int main(/*int argc, char *argv[]*/)
 {
-    pthread_t thread;
+    pthread_t pthread_led;
+    pthread_t pthread_http;
+
     sprintf(VERSION, "%d.%d.%d", VERSION_MAJOR, VERSION_MINOR, VERSION_MICRO);
 
     printf("START LED CONTROL SYSTEM. VERSION: %s\n", VERSION);
@@ -55,8 +57,12 @@ int main(/*int argc, char *argv[]*/)
 
     init_led(); 
 
-    if ( pthread_create( &thread, NULL, thread_led, NULL ) ) {
-	printf("ERROR: Can not create thread\n");
+    if ( pthread_create( &pthread_led, NULL, thread_led, NULL ) ) {
+	printf("ERROR: Can not create thread led\n");
+	return -1;
+    }
+    if ( pthread_create( &pthread_http, NULL, thread_http_server, NULL ) ) {
+	printf("ERROR: Can not create thread http_server\n");
 	return -1;
     }
 
@@ -70,7 +76,13 @@ int main(/*int argc, char *argv[]*/)
     switchScene(-1);
     control_task();
 
-    pthread_join(thread, NULL);
+    printf("QUIT: Wait to stop led thread\n");
+    pthread_join(pthread_led, NULL);
+
+    printf("QUIT: Wait to stop http thread\n");
+    http_server_stop();
+
+    pthread_join(pthread_http, NULL);
 
     sem_destroy(&semaphore);
 

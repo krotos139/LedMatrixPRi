@@ -49,10 +49,12 @@ uint8_t init_artnet();
 //void artnet_task();
 uint8_t artnet_init();
 void control_task();
-//void http_server(void *pvParameters);
 
+void* thread_http_server( void* vptr_args );
 void* thread_led( void* vptr_args );
 sem_t semaphore;
 uint8_t running;
+
+void http_server_stop();
 
 

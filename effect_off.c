@@ -6,7 +6,7 @@
 void effect_off_start() {
 	usleep(200000);
 	led_clear();
-	led_show();
+//	led_show();
 }
 
 void effect_off_process() {
@@ -15,6 +15,6 @@ void effect_off_process() {
 
 void effect_off_end() {
 	led_clear();
-	led_show();
+//	led_show();
 }
 
