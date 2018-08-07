@@ -57,7 +57,14 @@ int http_server_serve(int sock)
         switchScene(6);
       } else if(buf[5]=='7') {
         switchScene(7);
+      } else if(buf[5]=='8') {
+        switchScene(8);
+      } else if(buf[5]=='9') {
+        switchScene(9);
       }
+
+
+
 
 
 
@@ -99,30 +106,45 @@ int http_server_serve(int sock)
 	  if (mode == 4) {
 		  sprintf(html_format_buffer, http_index_hml_bd, "/4", "Perlin HSV");
 	  } else {
-		  sprintf(html_format_buffer, http_index_hml_b, "/4", "perlin HSV");
+		  sprintf(html_format_buffer, http_index_hml_b, "/4", "Perlin HSV");
 	  }
 	  send(sock, html_format_buffer, strlen(html_format_buffer), 0);
   	  // Perlin RGB
 	  if (mode == 5) {
 		  sprintf(html_format_buffer, http_index_hml_bd, "/5", "Perlin RGB");
 	  } else {
-		  sprintf(html_format_buffer, http_index_hml_b, "/5", "perlin RGB");
+		  sprintf(html_format_buffer, http_index_hml_b, "/5", "Perlin RGB");
 	  }
 	  send(sock, html_format_buffer, strlen(html_format_buffer), 0);
 	  // Perlin G
 	  if (mode == 6) {
 		  sprintf(html_format_buffer, http_index_hml_bd, "/6", "Perlin Green");
 	  } else {
-		  sprintf(html_format_buffer, http_index_hml_b, "/6", "perlin Green");
+		  sprintf(html_format_buffer, http_index_hml_b, "/6", "Perlin Green");
 	  }
 	  send(sock, html_format_buffer, strlen(html_format_buffer), 0);
 	  // Perlin B
 	  if (mode == 7) {
 		  sprintf(html_format_buffer, http_index_hml_bd, "/7", "Perlin Blue");
 	  } else {
-		  sprintf(html_format_buffer, http_index_hml_b, "/7", "perlin Blue");
+		  sprintf(html_format_buffer, http_index_hml_b, "/7", "Perlin Blue");
 	  }
 	  send(sock, html_format_buffer, strlen(html_format_buffer), 0);
+	  // Allight
+	  if (mode == 8) {
+		  sprintf(html_format_buffer, http_index_hml_bd, "/8", "Allight");
+	  } else {
+		  sprintf(html_format_buffer, http_index_hml_b, "/8", "Allight");
+	  }
+	  send(sock, html_format_buffer, strlen(html_format_buffer), 0);
+	// Night
+	  if (mode == 9) {
+		  sprintf(html_format_buffer, http_index_hml_bd, "/9", "Night");
+	  } else {
+		  sprintf(html_format_buffer, http_index_hml_b, "/9", "Night");
+	  }
+	  send(sock, html_format_buffer, strlen(html_format_buffer), 0);
+
 
 	  send(sock, http_index_hml_e, sizeof(http_index_hml_e)-1, 0);
     }

@@ -53,6 +53,14 @@ void effect_perlinnoiseb_start();
 void effect_perlinnoiseb_process();
 void effect_perlinnoiseb_end();
 
+void effect_alllight_start();
+void effect_alllight_process();
+void effect_alllight_end();
+
+void effect_night_start();
+void effect_night_process();
+void effect_night_end();
+
 void artnet_start();
 void artnet_process();
 void artnet_end();

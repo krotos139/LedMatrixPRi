@@ -45,6 +45,10 @@ void control_task() {
 					break;
 				case 7: effect_perlinnoiseb_end(); 
 					break;
+				case 8: effect_alllight_end(); 
+					break;
+				case 9: effect_night_end(); 
+					break;
 
 			}
 			scene = new_scene;
@@ -66,6 +70,11 @@ void control_task() {
 					break;
 				case 7: effect_perlinnoiseb_start(); 
 					break;
+				case 8: effect_alllight_start(); 
+					break;
+				case 9: effect_night_start(); 
+					break;
+
 
 			}
 			printf("CONTROL: done swiching\n");
@@ -88,6 +97,11 @@ void control_task() {
 				break;
 			case 7: effect_perlinnoiseb_process(); 
 				break;
+			case 8: effect_alllight_process(); 
+				break;
+			case 9: effect_night_process(); 
+				break;
+
 
 		}
 }

@@ -49,6 +49,8 @@ srcs = Split('''
     effect_perlin_rgbnoise.c
     effect_perlin_gnoise.c
     effect_perlin_bnoise.c
+    effect_alllight.c
+    effect_night.c
     control.c
     led.c
     artnet.c
