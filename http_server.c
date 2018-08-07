@@ -61,7 +61,13 @@ int http_server_serve(int sock)
         switchScene(8);
       } else if(buf[5]=='9') {
         switchScene(9);
+      } else if(buf[5]=='A') {
+        switchScene(10);
+      } else if(buf[5]=='B') {
+        switchScene(11);
       }
+
+
 
 
 
@@ -86,6 +92,13 @@ int http_server_serve(int sock)
 		  sprintf(html_format_buffer, http_index_hml_bd, "/2", "Main light");
 	  } else {
 		  sprintf(html_format_buffer, http_index_hml_b, "/2", "Main light");
+	  }
+	  send(sock, html_format_buffer, strlen(html_format_buffer), 0);
+	  // Box light
+	  if (mode == 11) {
+		  sprintf(html_format_buffer, http_index_hml_bd, "/B", "Main light box");
+	  } else {
+		  sprintf(html_format_buffer, http_index_hml_b, "/B", "Main light box");
 	  }
 	  send(sock, html_format_buffer, strlen(html_format_buffer), 0);
 	  // Artnet
@@ -137,11 +150,18 @@ int http_server_serve(int sock)
 		  sprintf(html_format_buffer, http_index_hml_b, "/8", "Allight");
 	  }
 	  send(sock, html_format_buffer, strlen(html_format_buffer), 0);
-	// Night
+	  // Night
 	  if (mode == 9) {
 		  sprintf(html_format_buffer, http_index_hml_bd, "/9", "Night");
 	  } else {
 		  sprintf(html_format_buffer, http_index_hml_b, "/9", "Night");
+	  }
+	  send(sock, html_format_buffer, strlen(html_format_buffer), 0);
+	  // COLORBOX
+	  if (mode == 10) {
+		  sprintf(html_format_buffer, http_index_hml_bd, "/A", "Color Box");
+	  } else {
+		  sprintf(html_format_buffer, http_index_hml_b, "/A", "Color Box");
 	  }
 	  send(sock, html_format_buffer, strlen(html_format_buffer), 0);
 

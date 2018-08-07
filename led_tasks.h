@@ -61,6 +61,15 @@ void effect_night_start();
 void effect_night_process();
 void effect_night_end();
 
+void effect_colorbox_start();
+void effect_colorbox_process();
+void effect_colorbox_end();
+
+void effect_mainboxlight_start();
+void effect_mainboxlight_process();
+void effect_mainboxlight_end();
+
+
 void artnet_start();
 void artnet_process();
 void artnet_end();
