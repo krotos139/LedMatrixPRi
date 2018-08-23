@@ -26,7 +26,7 @@ void effect_perlinnoiseg_start() {
 }
 
 void effect_perlinnoiseg_process() {
-	usleep(1000);
+	usleep(2000);
 	gz += 1;
 	for(int x = 0; x < LED_X; x++) {
 		for(int y = 0; y < LED_Y; y++) {

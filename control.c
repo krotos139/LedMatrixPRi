@@ -5,7 +5,7 @@
 
 
 int scene = -1;
-int new_scene = 12;
+int new_scene = 2;
 	
 void switchScene(int scene) {
 	new_scene = scene;

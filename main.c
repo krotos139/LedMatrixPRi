@@ -52,7 +52,6 @@ int main(/*int argc, char *argv[]*/)
 
     printf("START LED CONTROL SYSTEM. VERSION: %s\n", VERSION);
 
-    sem_init(&semaphore, 0, 1);
     setup_handlers();
 
     init_led(); 
@@ -84,7 +83,6 @@ int main(/*int argc, char *argv[]*/)
 
     pthread_join(pthread_http, NULL);
 
-    sem_destroy(&semaphore);
 
     printf("QUIT\n");
 

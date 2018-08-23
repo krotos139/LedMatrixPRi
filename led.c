@@ -135,7 +135,6 @@ ws2811_led_t* led_get_buf(uint8_t x, uint8_t y) {
 
 void led_show() {
 	int i = 0;
-	sem_wait(&semaphore);
 	for (int x = 0 ; x<LED_X ; x++) {
 		if (x % 2 == 0) {
 			for (int y = 0 ; y<8 ; y++) {
@@ -174,7 +173,6 @@ void led_show() {
 
 		}
 	}
-	sem_post(&semaphore);
 	if (0) {
 		printf("DEBUG LED:\n");
 		for (int f = 0 ; f<16 ; f++) {
@@ -200,13 +198,11 @@ void led_clear() {
 			led_set_pixel_rgb(x, y, 0, 0, 0);
 		}
     	}
-	sem_wait(&semaphore);
 	for (int i = 0 ; i < LED_STRIP_LENGTH ; i++) {
 		ledstring1.channel[0].leds[i] = 0;
 		ledstring2.channel[0].leds[i] = 0;
 		ledstring3.channel[0].leds[i] = 0;
 	}
-	sem_post(&semaphore);
 
 }
 
@@ -215,7 +211,6 @@ void* thread_led( void* vptr_args ) {
    if (vptr_args == NULL)
 	   ret = 0;
     while (running) {
-        sem_wait(&semaphore);
 	if ((ret = ws2811_render(&ledstring1)) != WS2811_SUCCESS) {
 		fprintf(stderr, "ws2811_render 1 failed: %s\n", ws2811_get_return_t_str(ret));
 	}
@@ -225,7 +220,6 @@ void* thread_led( void* vptr_args ) {
 	if ((ret = ws2811_render(&ledstring3)) != WS2811_SUCCESS) {
 		fprintf(stderr, "ws2811_render 1 failed: %s\n", ws2811_get_return_t_str(ret));
 	}
-	sem_post(&semaphore);
     	usleep(10000);
     }
     printf("LED: quit\n");
