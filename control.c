@@ -5,7 +5,7 @@
 
 
 int scene = -1;
-int new_scene = 11;
+int new_scene = 12;
 	
 void switchScene(int scene) {
 	new_scene = scene;
@@ -53,6 +53,8 @@ void control_task() {
 					break;
 				case 11: effect_mainboxlight_end();
 					break;
+				case 12: effect_lengton_end();
+					break;
 
 
 			}
@@ -82,6 +84,8 @@ void control_task() {
 				case 10: effect_colorbox_start(); 
 					break;
 				case 11: effect_mainboxlight_start();
+					break;
+				case 12: effect_lengton_start();
 					break;
 
 
@@ -113,6 +117,8 @@ void control_task() {
 			case 10: effect_colorbox_process(); 
 				break;
 			case 11: effect_mainboxlight_process();
+				break;
+			case 12: effect_lengton_process();
 				break;
 
 

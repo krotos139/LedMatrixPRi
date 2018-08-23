@@ -53,6 +53,7 @@ srcs = Split('''
     effect_night.c
     effect_colorbox.c
     effect_mainbox_light.c
+    effect_lengton.c
     control.c
     led.c
     artnet.c

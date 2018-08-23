@@ -65,7 +65,10 @@ int http_server_serve(int sock)
         switchScene(10);
       } else if(buf[5]=='B') {
         switchScene(11);
+      } else if(buf[5]=='C') {
+        switchScene(12);
       }
+
 
 
 
@@ -141,6 +144,13 @@ int http_server_serve(int sock)
 		  sprintf(html_format_buffer, http_index_hml_bd, "/7", "Perlin Blue");
 	  } else {
 		  sprintf(html_format_buffer, http_index_hml_b, "/7", "Perlin Blue");
+	  }
+	  send(sock, html_format_buffer, strlen(html_format_buffer), 0);
+	  // Lengton ant
+	  if (mode == 12) {
+		  sprintf(html_format_buffer, http_index_hml_bd, "/C", "Lengton Ant");
+	  } else {
+		  sprintf(html_format_buffer, http_index_hml_b, "/C", "Lengton Ant");
 	  }
 	  send(sock, html_format_buffer, strlen(html_format_buffer), 0);
 	  // Allight

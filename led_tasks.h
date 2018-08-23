@@ -69,6 +69,10 @@ void effect_mainboxlight_start();
 void effect_mainboxlight_process();
 void effect_mainboxlight_end();
 
+void effect_lengton_start();
+void effect_lengton_process();
+void effect_lengton_end();
+
 
 void artnet_start();
 void artnet_process();
