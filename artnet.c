@@ -61,10 +61,20 @@ void onDmxFrame(uint16_t universe, uint16_t length, uint8_t sequence, uint8_t* d
 	int data_index = 0;
 	gx = gx*16;
 	gy = gy*8;
-	for (int y=0 ; y<8 ; y++) {
-		for (int x=0 ; x<16 ; x++) {
-			led_set_pixel_rgb(x+gx, y+gy, data[data_index], data[data_index+1], data[data_index+2]);
-			data_index += 3;
+	if (gx>=48) {
+		for (int y=0 ; y<8 ; y++) {
+			for (int x=0 ; x<8 ; x++) {
+				led_set_pixel_rgb(x+gx, y+gy, data[data_index], data[data_index+1], data[data_index+2]);
+				data_index += 3;
+			}
+		}
+
+	} else {
+		for (int y=0 ; y<8 ; y++) {
+			for (int x=0 ; x<16 ; x++) {
+				led_set_pixel_rgb(x+gx, y+gy, data[data_index], data[data_index+1], data[data_index+2]);
+				data_index += 3;
+			}
 		}
 	}
 }
