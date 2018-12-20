@@ -54,6 +54,7 @@ srcs = Split('''
     effect_colorbox.c
     effect_mainbox_light.c
     effect_lengton.c
+    retro_test.c
     control.c
     led.c
     artnet.c

@@ -55,6 +55,8 @@ void control_task() {
 					break;
 				case 12: effect_lengton_end();
 					break;
+				case 13: effect_retrowave_end();
+					 break;
 
 
 			}
@@ -87,6 +89,8 @@ void control_task() {
 					break;
 				case 12: effect_lengton_start();
 					break;
+				case 13: effect_retrowave_start();
+					 break;
 
 
 			}
@@ -120,7 +124,8 @@ void control_task() {
 				break;
 			case 12: effect_lengton_process();
 				break;
-
+			case 13: effect_retrowave_process();
+				 break;
 
 		}
 }

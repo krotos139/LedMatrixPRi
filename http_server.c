@@ -67,7 +67,10 @@ int http_server_serve(int sock)
         switchScene(11);
       } else if(buf[5]=='C') {
         switchScene(12);
+      } else if(buf[5]=='D') {
+	switchScene(13);
       }
+
 
 
 
@@ -172,6 +175,12 @@ int http_server_serve(int sock)
 		  sprintf(html_format_buffer, http_index_hml_bd, "/A", "Color Box");
 	  } else {
 		  sprintf(html_format_buffer, http_index_hml_b, "/A", "Color Box");
+	  }
+	  // TESTOVYI RETROWAVE
+	  if (mode == 13) {
+		 sprintf(html_format_buffer, http_index_hml_bd, "/D", "Retro Test");
+	  } else {
+ 		 sprintf(html_format_buffer, http_index_hml_b, "/D", "Retro Test");	  
 	  }
 	  send(sock, html_format_buffer, strlen(html_format_buffer), 0);
 
